@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game 01</title>
+</head>
+<style>
+    .image {
+        height: 50px;
+        width: 50px;
+        position: absolute;
+    }
+
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    #basket {
+        height: 100px;
+        width: 100px;
+        position: fixed;
+        bottom: 0px;
+
+    }
+
+</style>
+<body>
+<img id="basket"
+     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN1iiBRR2cIvrodNf8HzRgBo2PIGreqLdutEBlFil3I8QRdALA">
+
+<div id=imagecontain></div>
+<h1 id="score">Score 0</h1>
+<script>
+    var left = 10;
+    var screenHeight = document.body.clientHeight;
+    var imagecontain = document.getElementById('imagecontain');
+    var h1 = document.getElementById('score');
+    var score = 0;
+    function dropegg() {
+        var currentPositionTop = 0;
+        var currentpositionleft = Math.floor(Math.random() * (document.body.clientWidth - 60));
+        var img = document.createElement('img');
+        img.setAttribute('src', 'data:image/jpeg;base64,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');
+        img.setAttribute('class', 'image');
+        img.style.left = currentpositionleft + 'px';
+        imagecontain.appendChild(img);
+
+        var timer = setInterval(function () {
+            img.style.top = currentPositionTop++ + 'px';
+//            console.log(currentPositionTop, screenHeight);
+            if (currentPositionTop == screenHeight) {
+                imagecontain.removeChild(img);
+                clearInterval(timer);
+            }
+
+
+            if (currentPositionTop === (document.body.clientHeight - 100)) {
+                var eggLeft = Number(img.style.left.replace('px', ''));
+                if (eggLeft > left && eggLeft < (left + 100)) {
+                    imagecontain.removeChild(img);
+                    score = score + 10;
+                    h1.innerHTML = ' score ' + score;
+                    console.log('score update!')
+                }
+            }
+
+
+        }, 0);
+    }
+    setInterval(dropegg, 2000);
+    function Moveleft() {
+        if (left >= 0) {
+            left = left - 20;
+            basket.style.left = left + 'px';
+        }
+    }
+    function Moveright() {
+        if (left <= document.body.clientWidth - 100) {
+            left = left + 20;
+            basket.style.left = left + 'px';
+        }
+    }
+    document.onkeydown = positionchange;
+    function positionchange(e) {
+//        console.log(e);
+        if (e.keyCode == '37') {
+            Moveleft();
+//            console.log(e);
+        }
+        else if (e.keyCode == '39') {
+            Moveright();
+        }
+    }
+
+</script>
+</body>
+</html>
